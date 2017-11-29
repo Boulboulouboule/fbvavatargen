@@ -9,6 +9,17 @@
     <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
+<div class="container text-center">
+    <div id="status"></div>
+    <div class="jumbotron">
+        <p class="lead">Connectez vous à facebook pour générer une image à votre nom!</p>
+        <button class="btn btn-primary" onclick="checkLoginState()"><span class="fa fa-facebook"></span> Connexion à mon compte
+            facebook
+        </button>
+    </div>
+</div>
+
 <?php $filname = date('YmdHis'); ?>
 <script>
     // This is called with the results from from FB.getLoginStatus().
@@ -72,8 +83,9 @@
 							<img src='avatars/<?php echo $filname; ?>.jpg' />
 						</div>`;
                 })
-                .then(function(){
-                    fetch('/merge.php?name=" + response.name + "&file=<?php echo $filname; ?>', {
+                .then(function(response){
+                    console.log(response);
+                    fetch('/merge.php?file=<?php echo $filname; ?>&imgPath=' + response, {
                         headers: {"Content-Type": "application/json"},
                         method: "GET",
                     })
@@ -82,29 +94,6 @@
     }
 </script>
 
-<!--
-  Below we include the Login Button social plugin. This button uses
-  the JavaScript SDK to present a graphical Login button that triggers
-  the FB.login() function when clicked.
--->
-
-
-<div class="container text-center">
-    <div id="status"></div>
-    <div class="jumbotron">
-        <p class="lead">Connectez vous à facebook pour générer une image à votre nom!</p>
-        <button class="btn btn-primary" onclick="checkLoginState()"><span class="fa fa-facebook"></span> Connexion à mon compte
-            facebook
-        </button>
-    </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-        crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
         integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
         crossorigin="anonymous"></script>
