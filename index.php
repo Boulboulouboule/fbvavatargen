@@ -75,7 +75,7 @@
                         `<div class="lead alert alert-success">
 							Merci ${response.name}, une image à votre nom vient d'être générée
 							<br/>
-							<img src='avatars/<?php echo $filename; ?>.jpg' />
+							<img src='../<?php echo $filename; ?>' />
 						</div>`;
 
                     fetch('/merge.php?file=<?php echo $filename; ?>', {

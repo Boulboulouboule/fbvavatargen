@@ -1,7 +1,4 @@
 <?php
-var_dump($_POST);
-var_dump($_GET);
-
 $ffmpeg = FFMpeg\FFMpeg::create();
 
 // Réglage nom/durée de la video finale
