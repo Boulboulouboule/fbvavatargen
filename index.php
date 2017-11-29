@@ -78,7 +78,7 @@
 							<img src='avatars/<?php echo $filename; ?>.jpg' />
 						</div>`;
 
-                    fetch('/merge.php?file=<?php echo $filename; ?>, {
+                    fetch('/merge.php?file=<?php echo $filename; ?>', {
                         headers: {"Content-Type": "application/json"},
                         method: "GET",
                     })
