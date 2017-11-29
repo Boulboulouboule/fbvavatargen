@@ -16,11 +16,13 @@
         if (response.status === 'connected') {
             testAPI();
         } else {
-            document.getElementById('status').innerHTML = 'Please log ' +
-                'into this app.';
+            document.getElementById('status').innerHTML =
+                `<div class="lead alert alert-warning">
+					Vous devez vous connecter à facebook
+					<br/>
+				</div>`;
         }
     }
-
 
     function checkLoginState() {
         FB.getLoginStatus(function (response) {
@@ -31,20 +33,19 @@
     window.fbAsyncInit = function () {
         FB.init({
             appId: '131023097573160',
-            cookie: true,  // enable cookies to allow the server to access
-                           // the session
-            xfbml: true,  // parse social plugins on this page
-            version: 'v2.11' // use graph api version 2.8
+            cookie: true,
+            xfbml: true,
+            version: 'v2.11'
         });
 
-        FB.getLoginStatus(function (response) {
-            statusChangeCallback(response);
-        });
+//        FB.getLoginStatus(function (response) {
+//            statusChangeCallback(response);
+//        });
 
     };
 
     (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
+        let js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s);
         js.id = id;
@@ -60,8 +61,8 @@
             };
             fetch("/imgGen.php?name=" + response.name + "&file=<?php echo $filname; ?>", {
                 headers: {"Content-Type": "application/json"},
-                method: "POST",
-                body: JSON.stringify(requestBody)
+                method: "GET",
+//                body: JSON.stringify(requestBody)
             })
                 .then(function () {
                     document.getElementById('status').innerHTML =
@@ -74,8 +75,7 @@
                 .then(function(){
                     fetch('/merge.php?name=" + response.name + "&file=<?php echo $filname; ?>', {
                         headers: {"Content-Type": "application/json"},
-                        method: "POST",
-                        body: JSON.stringify(requestBody)
+                        method: "GET",
                     })
                 })
         });
@@ -93,7 +93,7 @@
     <div id="status"></div>
     <div class="jumbotron">
         <p class="lead">Connectez vous à facebook pour générer une image à votre nom!</p>
-        <button class="btn btn-primary" onclick="FB.login()"><span class="fa fa-facebook"></span> Connexion à mon compte
+        <button class="btn btn-primary" onclick="checkLoginState()"><span class="fa fa-facebook"></span> Connexion à mon compte
             facebook
         </button>
     </div>
