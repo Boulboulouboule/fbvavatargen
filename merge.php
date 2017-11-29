@@ -1,4 +1,8 @@
 <?php
+// Auto loader de composer
+require __DIR__ . '/vendor/autoload.php';
+
+// Affichage des erreurs
 ini_set('display_errors', '1');
 error_reporting(E_ALL & ~E_NOTICE);
 try {
