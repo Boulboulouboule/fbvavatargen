@@ -9,6 +9,7 @@
     <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+	<?php $filname= date('YmdHis'); ?>
 <script>
     // This is called with the results from from FB.getLoginStatus().
     function statusChangeCallback(response) {
@@ -53,14 +54,16 @@
 
     function testAPI() {
         FB.api('/me', function (response) {
-            document.getElementById('status').innerHTML =
-                `<div class="lead alert alert-success">
-Merci ${response.name}, une image à votre nom vient d'être générée
-</div>`;
-            fetch("/imgGen.php?name=" + response.name, {
+        		fetch("/imgGen.php?name=" + response.name +"&file=<?php echo $filname; ?>", {
                 headers: {"Content-Type": "application/json"},
                 method: "GET"
             })
+        		.then(function(response2) {
+						              document.getElementById('status').innerHTML =
+                `<div class="lead alert alert-success">
+									Merci ${response.name}, une image à votre nom vient d'être générée<br/><img src='avatars/<?php echo $filname; ?>.jpg' />
+									</div>`;
+						})
         });
     }
 </script>

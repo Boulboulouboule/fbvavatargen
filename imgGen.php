@@ -8,6 +8,6 @@ $font_path = './RobotoCondensed-Regular.ttf';
 $text = $_GET['name'];
 
 imagettftext($jpg_image, 25, 0, 110, 162.5, $white, $font_path, $text);
-imagejpeg($jpg_image,strtolower(str_replace(' ', '', $_GET['name'])) . '.jpg',100);
+imagejpeg($jpg_image,'./avatars/' . $_GET['file'] . '.jpg',100);
 imagedestroy($jpg_image);
 
