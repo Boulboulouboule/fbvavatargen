@@ -20,9 +20,8 @@
     </div>
 </div>
 
-<?php $filname = date('YmdHis'); ?>
+<?php $filename = './avatars/' . date('YmdHis') . '.jpg'; ?>
 <script>
-    // This is called with the results from from FB.getLoginStatus().
     function statusChangeCallback(response) {
         if (response.status === 'connected') {
             testAPI();
@@ -68,23 +67,22 @@
         FB.api('/me', function (response) {
             let requestBody = {
                 name:response.name,
-                file: <?php echo $filname; ?>
+                file: <?php echo $filename; ?>
             };
-            fetch("/imgGen.php?name=" + response.name + "&file=<?php echo $filname; ?>", {
+            fetch("/imgGen.php?name=" + response.name + "&file=<?php echo $filename; ?>", {
                 headers: {"Content-Type": "application/json"},
                 method: "GET",
 //                body: JSON.stringify(requestBody)
             })
-                .then(function (imgPath) {
+                .then(function () {
                     document.getElementById('status').innerHTML =
                         `<div class="lead alert alert-success">
 							Merci ${response.name}, une image à votre nom vient d'être générée
 							<br/>
-							<img src='avatars/<?php echo $filname; ?>.jpg' />
+							<img src='avatars/<?php echo $filename; ?>.jpg' />
 						</div>`;
 
-                    console.log(imgPath);
-                    fetch('/merge.php?file=<?php echo $filname; ?>&imgPath=' + imgPath, {
+                    fetch('/merge.php?file=<?php echo $filename; ?>, {
                         headers: {"Content-Type": "application/json"},
                         method: "GET",
                     })
