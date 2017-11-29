@@ -9,7 +9,7 @@
     <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<?php $filname= date('YmdHis'); ?>
+<?php $filname = date('YmdHis'); ?>
 <script>
     // This is called with the results from from FB.getLoginStatus().
     function statusChangeCallback(response) {
@@ -54,16 +54,16 @@
 
     function testAPI() {
         FB.api('/me', function (response) {
-        		fetch("/imgGen.php?name=" + response.name +"&file=<?php echo $filname; ?>", {
+            fetch("/imgGen.php?name=" + response.name + "&file=<?php echo $filname; ?>", {
                 headers: {"Content-Type": "application/json"},
                 method: "GET"
             })
-        		.then(function(response2) {
-						              document.getElementById('status').innerHTML =
-                `<div class="lead alert alert-success">
+                .then(function (response2) {
+                    document.getElementById('status').innerHTML =
+                        `<div class="lead alert alert-success">
 									Merci ${response.name}, une image à votre nom vient d'être générée<br/><img src='avatars/<?php echo $filname; ?>.jpg' />
 									</div>`;
-						})
+                })
         });
     }
 </script>
@@ -79,7 +79,9 @@
     <div id="status"></div>
     <div class="jumbotron">
         <p class="lead">Connectez vous à facebook pour générer une image à votre nom!</p>
-        <button class="btn btn-primary" onclick="FB.login()"><span class="fa fa-facebook"></span> Connexion à mon compte facebook</button>
+        <button class="btn btn-primary" onclick="FB.login()"><span class="fa fa-facebook"></span> Connexion à mon compte
+            facebook
+        </button>
     </div>
 </div>
 
