@@ -16,10 +16,16 @@ $duration = 2;
 if ($imgPath = __DIR__ . $_GET['file']) {
     try {
         // Créer une video à partir d'une image (reglage de la durée au dessus)
+        var_dump($imgPath);
+        var_dump($tempFile);
         echo exec('ffmpeg -loop 1 -i ' . $imgPath . ' -c:v libx264 -t ' . $duration . ' -pix_fmt yuv720p -vf scale=1280:720 ' . $tempFile);
 
         // Fusionne les 2 videos temporaires
+        var_dump(__DIR__ . '/videos/' . $filename . '.mp4');
         echo exec('ffmpeg -f concat -i ' . $fileList . ' -c copy ' . __DIR__ . '/videos/' . $filename . '.mp4');
+
+        // test
+        echo exec('ffmpeg -f concat -i bmw.mp4 -c copy ' . __DIR__ . '/videos/test.mp4');
 
         // Suppression des videos temporaires
         unlink($tempFile);
