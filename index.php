@@ -54,15 +54,29 @@
 
     function testAPI() {
         FB.api('/me', function (response) {
+            let requestBody = {
+                name:response.name,
+                file: <?php echo $filname; ?>
+            };
             fetch("/imgGen.php?name=" + response.name + "&file=<?php echo $filname; ?>", {
                 headers: {"Content-Type": "application/json"},
-                method: "GET"
+                method: "POST",
+                body: JSON.stringify(requestBody)
             })
-                .then(function (response2) {
+                .then(function () {
                     document.getElementById('status').innerHTML =
                         `<div class="lead alert alert-success">
-									Merci ${response.name}, une image à votre nom vient d'être générée<br/><img src='avatars/<?php echo $filname; ?>.jpg' />
-									</div>`;
+							Merci ${response.name}, une image à votre nom vient d'être générée
+							<br/>
+							<img src='avatars/<?php echo $filname; ?>.jpg' />
+						</div>`;
+                })
+                .then(function(){
+                    fetch('/merge.php?name=" + response.name + "&file=<?php echo $filname; ?>', {
+                        headers: {"Content-Type": "application/json"},
+                        method: "POST",
+                        body: JSON.stringify(requestBody)
+                    })
                 })
         });
     }
