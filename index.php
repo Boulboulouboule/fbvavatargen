@@ -75,17 +75,16 @@
                 method: "GET",
 //                body: JSON.stringify(requestBody)
             })
-                .then(function () {
+                .then(function (imgPath) {
                     document.getElementById('status').innerHTML =
                         `<div class="lead alert alert-success">
 							Merci ${response.name}, une image à votre nom vient d'être générée
 							<br/>
 							<img src='avatars/<?php echo $filname; ?>.jpg' />
 						</div>`;
-                })
-                .then(function(response){
-                    console.log(response);
-                    fetch('/merge.php?file=<?php echo $filname; ?>&imgPath=' + response, {
+
+                    console.log(imgPath);
+                    fetch('/merge.php?file=<?php echo $filname; ?>&imgPath=' + imgPath, {
                         headers: {"Content-Type": "application/json"},
                         method: "GET",
                     })
